@@ -1,0 +1,13 @@
+# pod.yaml
+apiVersion: v1         # The API version for this object type. Pods are in the core 'v1' API.
+kind: Pod              # The type of Kubernetes object we are creating.
+metadata:
+  name: nginx-pod      # The name we are giving our Pod.
+  labels:
+    app: nginx         # Labels are key-value pairs for organizing resources.
+spec:                  # The 'specification' or desired state of the Pod.
+  containers:          # A list of containers to run in this Pod.
+  - name: nginx-container # A name for the container within the Pod.
+    image: nginx:1.14.2   # The Docker image to pull and run.
+    ports:
+    - containerPort: 80 # The port the application is listening on inside the container.

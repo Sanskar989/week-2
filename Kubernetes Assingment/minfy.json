@@ -1,0 +1,8 @@
+{
+    "name" : "minfy technologies",
+    "Technology" : {
+        "Used in Minfy" : ["java", "python", "devops","kubernetes"]
+    },
+    "location" : "hyderabad",
+    "employees" : 200.00
+}
