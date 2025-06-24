@@ -1,4 +1,4 @@
-## 🎯 Objective
+## 🎯 Objective (Class Assingment)
 
 Learn how to deploy your very first application on Kubernetes!  
 We’ll use a simple NGINX web server as an example and walk through every step — from creating the file, to running commands, to checking if it worked.
@@ -7,28 +7,8 @@ We’ll use a simple NGINX web server as an example and walk through every step 
 
 ## 🗺️ Diagram: How It Works
 
-[You (DevOps/Beginnner)]
-          |
-          v
-   [Write pod.yaml file]
-          |
-          v
- [kubectl apply -f pod.yaml]
-          |
-          v
- [Kubernetes API Server]
-          |
-          v
-   [Kubernetes Node]
-          |
-          v
- [NGINX Pod Runs on Node]
-          |
-          v
-   [Check Status/Logs]
-          |
-          v
-      [Success!]
+![ChatGPT Image Jun 23, 2025, 09_43_37 AM](https://github.com/user-attachments/assets/a418a569-9d42-40a7-a7fc-78c3e3f321c4)
+
 
 
 ---
@@ -141,6 +121,109 @@ kubectl describe pod nginx-pod
 * You deployed an NGINX web server on Kubernetes.
 * You checked its status and logs.
 * You learned some basic troubleshooting!
+
+---
+
+# MongoDB + Mongo-Express on Kubernetes(TAKE HOME ASSINGMENT)
+
+---
+
+## 🎯 Objective
+
+Deploy a secure, real-world, multi-tier application on Kubernetes using best practices for secrets and configuration.
+This project sets up a MongoDB database and a Mongo-Express web interface, all managed by Kubernetes.
+
+---
+
+## 🗺️ Architecture & Workflow
+
+
+![ChatGPT Image Jun 23, 2025, 10_10_29 AM](https://github.com/user-attachments/assets/785ac2e0-5679-4ae9-b572-de63fd680d71)
+
+
+**Workflow:**
+User → (LoadBalancer Service) → Mongo-Express Pod → (Internal Service) → MongoDB Pod (with Secrets/ConfigMaps for credentials and configs)
+
+---
+
+## 📝 Deployment Steps
+
+### 1. **Create and Apply Kubernetes Secret**
+
+* Encode your database username and password in base64 and create a Kubernetes Secret manifest for them.
+* Apply the secret to your cluster.
+![Screenshot 2025-06-22 010958](https://github.com/user-attachments/assets/f9985d1d-93e8-4ad7-85ba-f4d49adf2086)
+
+### 2. **Deploy MongoDB with Internal Service**
+
+* Write a Deployment for MongoDB and a Service to give it a stable internal address.
+* Reference the secret for MongoDB credentials in the deployment.
+
+### 3. **Create a ConfigMap for App Config**
+
+* Make a ConfigMap for the Mongo-Express app to know the database’s internal service name.
+* Apply the ConfigMap.
+
+### 4. **Deploy Mongo-Express with External Service**
+
+* Write a Deployment for Mongo-Express, referencing both the ConfigMap and Secret for configuration and credentials.
+* Expose Mongo-Express with a Service of type LoadBalancer (or NodePort for Minikube).
+![Screenshot 2025-06-22 010945](https://github.com/user-attachments/assets/949617fc-8e20-41cf-b39a-4104945dd58b)
+
+### 5. **Access and Test**
+
+* Use your cluster’s service management (like `minikube service mongo-express-service`) to get the external URL.
+* Login to Mongo-Express in your browser with the credentials you created and confirm that it connects to MongoDB.
+![Screenshot 2025-06-21 221036](https://github.com/user-attachments/assets/0c4d0e22-8481-4c60-8222-6f8a95b3f730)
+
+![Screenshot 2025-06-22 010728](https://github.com/user-attachments/assets/c9cc1938-f3ae-401b-b520-98bdc09cc590)
+
+
+### 6. **Cleanup**
+
+* Delete all deployments, services, secrets, and configmaps you created for this assignment.
+
+---
+
+## 📸 Screenshots
+![Screenshot 2025-06-22 010958](https://github.com/user-attachments/assets/43ff3e7e-524e-4353-9cf0-82908c93dada)
+![Screenshot 2025-06-22 010945](https://github.com/user-attachments/assets/7c834546-664c-4498-83a3-5a0f994bf5cd)
+![Screenshot 2025-06-22 010932](https://github.com/user-attachments/assets/cde4f19d-84dd-480b-ade8-830c71ee2568)
+![Screenshot 2025-06-21 221036](https://github.com/user-attachments/assets/94fa8fdf-df8c-4d74-b29d-b7f75c08eb9e)
+![Screenshot 2025-06-22 010728](https://github.com/user-attachments/assets/9837f6d9-a9a3-4ec0-8d8e-fa7572751507)
+![Screenshot 2025-06-22 011037](https://github.com/user-attachments/assets/8c29cc7b-0be1-41be-9468-d7d23c51d648)
+
+
+---
+
+## 📦 Deliverables
+
+* All YAML files for Secrets, Deployments, Services, and ConfigMaps
+* Screenshot(s) of the running Mongo-Express UI
+* This completed README
+
+---
+
+## ⚡ Difficulties Faced
+
+* Ensuring secrets and config references were correct and consistently named
+* Making the external service accessible from the browser and troubleshooting network/port issues
+
+![Screenshot 2025-06-21 221011](https://github.com/user-attachments/assets/3e5c770e-dd33-474f-a22e-04cafeffbedc)
+
+
+---
+
+## 📝 What I Learned
+
+* How to separate sensitive and non-sensitive config with Secrets and ConfigMaps
+* How Deployments and Services work together to create a scalable, discoverable app in Kubernetes
+* Real-world workflow for multi-tier application deployments
+
+---
+
+**Made by:**
+**Sanskar Goyal**
 
 ---
 
